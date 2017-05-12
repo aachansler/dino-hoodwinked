@@ -60,19 +60,18 @@ function create() {
 //   game.add.text(32, 64 + 32, 'Animation stopped', { fill: 'white' });
 // }
 function update () {
-    if (cursors.left.isDown)
-    {
-        mummy.body.velocity.x = -150;
-    }
-    else if (cursors.right.isDown)
-    {
-        mummy.body.velocity.x = 150;
-    }
+  if (cursors.left.isDown) {
+    mummy.body.velocity.x = -150;
+  }
+  else if (cursors.right.isDown) {
+    mummy.body.velocity.x = 150;
+  } else {
+    mummy.body.velocity.x = 0;
+  }
 
-    if (jumpButton.isDown && (mummy.body.onFloor() || mummy.body.touching.down))
-    {
-        mummy.body.velocity.y = -400;
-    }
+  if (jumpButton.isDown) {
+    mummy.body.velocity.y = -400;
+  }
 }
 // function update() {
 //   if (anim.isPlaying) {
@@ -80,7 +79,7 @@ function update () {
 //   }
 // }
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser', {
+var game = new Phaser.Game('100%', '100%', Phaser.AUTO, 'phaser', {
   preload: preload,
   create: create,
   update: update
