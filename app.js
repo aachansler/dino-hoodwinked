@@ -1,5 +1,4 @@
 function preload() {
-  // game.load.image('background', 'assets/pics/background.png');
   game.stage.backgroundColor = '#85b5e1';
   game.load.spritesheet('sideDino', 'assets/sprites/side_dino.png');
   game.load.spritesheet('frontDino', 'assets/sprites/front_dino.png');
@@ -12,13 +11,13 @@ var back;
 var sideDino;
 var frontDino;
 var facing = 'left';
-// var anim;
-// var loopText;
+var score = 0;
 var cursors;
 var jumpButton;
 var platforms;
 var leaf;
 var rock;
+var scoreText;
 
 function create() {
   back = game.add.image(0, 0, 'background');
@@ -57,9 +56,12 @@ function create() {
   leaf = game.add.sprite(50, 500, 'leaf');
   leaf.scale.set(.25);
 
+
   rock = game.add.sprite(20, 593, 'rock');
   rock.scale.set(.50);
 
+  scoreString = 'Score : ';
+  scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
 
   sideDino.animations.add('left', [0, 1, 2, 3], 10, true);
   sideDino.animations.add('turn', [4], 20, true);
@@ -74,33 +76,8 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
   jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-
-  // anim = mummy.animations.add('walk');
-
-  // anim.onStart.add(animationStarted, this);
-  // anim.onLoop.add(animationLooped, this);
-  // anim.onComplete.add(animationStopped, this);
-
-  // anim.play(10, true);
 }
 
-// function animationStarted(sprite, animation) {
-//   game.add.text(32, 32, 'Animation started', { fill: 'white' });
-// }
-
-// function animationLooped(sprite, animation) {
-//   if (animation.loopCount === 1) {
-//     loopText = game.add.text(32, 64, 'Animation looped', { fill: 'white' });
-//   } else {
-//     loopText.text = 'Animation looped x2';
-//     animation.loop = false;
-//   }
-// }
-
-// function animationStopped(sprite, animation) {
-//   game.add.text(32, 64 + 32, 'Animation stopped', { fill: 'white' });
-// }
 function update () {
   game.physics.arcade.collide(sideDino, platforms);
 
@@ -117,14 +94,18 @@ function update () {
     sideDino.body.velocity.y = -350;
   }
 }
-// function update() {
-//   if (anim.isPlaying) {
-//     back.x -= 1;
-//   }
-// }
+
+function collisionHandler(sideDino, leaf) {
+  leaf.kill();
+  sideDino.kill();
+  score += 20;
+  console.log(score);
+  scoreText.text = 'score: ' + score;
+}
 
 var game = new Phaser.Game(800, 700, Phaser.AUTO, 'phaser', {
   preload: preload,
   create: create,
-  update: update
+  update: update,
+  collisionHandler: collisionHandler
 });
