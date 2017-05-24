@@ -68,7 +68,7 @@ function create() {
         leaf.body.bounce.y = 0.7 + Math.random() * 0.1;
     }
 
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#ffffff' });
+    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#ffffff' });
 
     cursors = game.input.keyboard.createCursorKeys();
 
