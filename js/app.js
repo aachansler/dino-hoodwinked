@@ -169,4 +169,5 @@ function setupClickToRestart() {
   game.input.onDown.addOnce(function() {
     game.state.start(game.state.current);
   }, this);
+  score = 0;
 }
